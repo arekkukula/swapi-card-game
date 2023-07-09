@@ -4,4 +4,6 @@
 */
 export type Person = {
   mass: number;
+  name: string;
+  uid: string;
 }

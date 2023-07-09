@@ -4,5 +4,7 @@
 */
 export type Starship = {
   crew: number;
+  name: string;
+  uid: string;
 }
 
