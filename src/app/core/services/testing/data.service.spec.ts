@@ -4,6 +4,7 @@ import { ApiService } from '../api.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import * as utils from "./utils";
+import { APP_INITIALIZER } from '@angular/core';
 
 describe('DataService', () => {
   let service: DataService;
@@ -11,7 +12,7 @@ describe('DataService', () => {
   let controller: HttpTestingController;
   let prng: ReturnType<typeof utils.prng>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     api = utils.mockApiService();
     prng = utils.prng();
 
@@ -26,6 +27,8 @@ describe('DataService', () => {
 
     service = TestBed.inject(DataService);
     controller = TestBed.inject(HttpTestingController);
+
+    await service.initializeData();
   });
 
   it('should be created', () => {
@@ -33,12 +36,11 @@ describe('DataService', () => {
   });
 
   it('gets people and starships data upon creation', () => {
-    expect(api.getPeople).toHaveBeenCalled();
-    expect(api.getStarships).toHaveBeenCalled();
+    expect(api.getPeopleMetadata).toHaveBeenCalled();
+    expect(api.getStarshipsMetadata).toHaveBeenCalled();
   });
 
   it('returns a random person', () => {
-    console.log(prng);
     service.getRandomPerson().subscribe(person => {
       expect(person).toEqual(utils.mockData.people[0]);
     });
@@ -63,7 +65,6 @@ describe('DataService', () => {
   });
 
   it('returns a random starship', () => {
-    console.log(prng);
     service.getRandomStarship().subscribe(person => {
       expect(person).toEqual(utils.mockData.starships[0]);
     });

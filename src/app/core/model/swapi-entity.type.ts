@@ -2,8 +2,13 @@
   * the whole object thats being fetched, e.g.
   * by requesting `/api/starships/1`.
   */
-export type SwapiEntity<T> = {
-  message: "ok" | "not found",
-  result?: { properties: T },
+export type SwapiEntity<T> =
+| { message: "not found" }
+| {
+  message: "ok",
+  result?: {
+    description?: string,
+    properties: T,
+  },
   _id?: string;
 }

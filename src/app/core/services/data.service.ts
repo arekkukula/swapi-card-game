@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { Observable, map, forkJoin, of, tap, filter, catchError } from 'rxjs';
+import { Observable, map, forkJoin, of, tap, filter, catchError, finalize } from 'rxjs';
 import { Person } from 'src/app/shared/model/person.type';
 import { Starship } from 'src/app/shared/model/starship.type';
 import { ApiService } from './api.service';
@@ -17,18 +17,28 @@ export class DataService {
     private api: ApiService,
     @Inject(DATASERVICE_RANDOM_GEN)
     private prng: () => number,
-  ) {
-    forkJoin([
-      this.api.getPeople(),
-      this.api.getStarships()
-    ]).subscribe({
-      next: ([people, starships]) => {
-        this.dataItems.people = people;
-        this.dataItems.starships = starships;
-      },
-      error: () => {
-        throw new Error("Unrecoverable error: Cannot get data from the API");
-      },
+  ) {}
+
+  /** Function retrieving all metadata for people and starships.
+    * To be used in `APP_INITIALIZER` as it's a requirement for
+    * the app to have this data.
+    */
+  initializeData(): Promise<void> {
+    return new Promise<void>(resolve => {
+      forkJoin([
+        this.api.getPeopleMetadata(),
+        this.api.getStarshipsMetadata()
+      ]).pipe(
+        finalize(() => resolve())
+      ).subscribe({
+          next: ([people, starships]) => {
+            this.metadata.people = people;
+            this.metadata.starships = starships;
+          },
+          error: () => {
+            throw new Error("Unrecoverable error: Cannot get data from the API");
+          },
+        });
     });
   }
 
@@ -43,22 +53,20 @@ export class DataService {
   /** Stores collections with all SWAPI resources per route,
     * populated at construction time.
     */
-  private readonly dataItems: Record<DataKeys, SwapiResource[]> = {
+  private readonly metadata: Record<DataKeys, SwapiResource[]> = {
     people: [],
     starships: [],
   };
 
   getRandomPerson(): Observable<Person> {
-    const len = this.dataItems.people.length;
+    const len = this.metadata.people.length;
     const rand = Math.floor(this.prng() * len);
 
-    const dataItem = this.dataItems.people[rand];
+    const dataItem = this.metadata.people[rand];
     const person = this.cache.people.get(dataItem.uid);
 
     if (!person) {
       return this.api.getPerson(dataItem.uid).pipe(
-        // assume we cannot get undefined programatically
-        map(person => person.result!.properties),
         tap(person => {
           this.cache.people.set(dataItem.uid, person);
         }),
@@ -69,16 +77,14 @@ export class DataService {
   }
 
   getRandomStarship(): Observable<Starship> {
-    const len = this.dataItems.starships.length;
+    const len = this.metadata.starships.length;
     const rand = Math.floor(this.prng() * len);
 
-    const dataItem = this.dataItems.starships[rand];
+    const dataItem = this.metadata.starships[rand];
     const starship = this.cache.starships.get(dataItem.uid);
 
     if (!starship) {
       return this.api.getStarship(dataItem.uid).pipe(
-        // assume we cannot get undefined programatically
-        map(response => response.result!.properties),
         tap(starship => {
           this.cache.starships.set(dataItem.uid, starship);
         }),
