@@ -1,0 +1,78 @@
+<ng-template #playerCard let-player="player" let-title="title">
+  <app-game-card
+    [ngSwitch]="cardType"
+    [scoreMessage]="player.scoreMessage"
+    [title]="title">
+    <app-person-card-details
+      *ngSwitchCase="'person'"
+      [person]="player.person"
+      [drawing]="!playButtonEnabled">
+    </app-person-card-details>
+
+    <app-starship-card-details
+      *ngSwitchCase="'starship'"
+      [starship]="player.starship"
+      [drawing]="!playButtonEnabled">
+    </app-starship-card-details>
+  </app-game-card>
+</ng-template>
+
+
+<div class="arena">
+  <div class="score">
+    <span>Player 1</span>
+
+    <div>
+      <span [@simpleFadeAnimation]="player1.score" class="player1-score">
+        {{ player1.score }}
+      </span>
+
+      <span>&colon;</span>
+
+      <span [@simpleFadeAnimation]="player2.score" class="player2-score">
+        {{ player2.score }}
+      </span>
+    </div>
+
+    <span>Player 2</span>
+  </div>
+
+  <div class="cards">
+    <ng-container *ngTemplateOutlet="playerCard; context: {
+      player: player1,
+      title: 'Player 1'
+      }"></ng-container>
+
+    <ng-container *ngTemplateOutlet="playerCard; context: {
+      player: player2,
+      title: 'Player 2'
+      }"></ng-container>
+  </div>
+</div>
+
+<div class="center-column">
+  <div class="center-column__controls">
+    <p class="round-summary">
+      {{ roundSummary }}
+    </p>
+
+    <div class="play-panel">
+      <mat-radio-group
+        [(ngModel)]="cardType"
+        (ngModelChange)="cardTypeChanged()"
+        color="primary">
+        <mat-radio-button [value]="CardType.Person">People</mat-radio-button>
+        <mat-radio-button [value]="CardType.Starship">Starships</mat-radio-button>
+      </mat-radio-group>
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!playButtonEnabled"
+        (click)="play()">
+        Play!
+      </button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+mat-card {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    rgb(255, 255, 255) 62%,
+    rgba(0, 0, 0, 0.03)
+  );
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card-footer {
+  flex: 1;
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.win-color {
+  background: seagreen;
+  color: white;
+}
+
+.lose-color {
+  background: indianred;
+  color: white;
+}
+
+.tie-color {
+  background: white;
+  color: black;
+}
+

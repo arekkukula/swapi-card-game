@@ -1,0 +1,19 @@
+@use "../card-details-shared-styles";
+
+:host {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+}
+
+.person-name {
+  font-size: 115%;
+  font-weight: bold;
+}
+
+.person-description {
+  color: gray;
+  padding-bottom: 16px;
+}
+

@@ -1,0 +1,19 @@
+@use "../_card-details-shared-styles";
+
+:host {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+}
+
+.starship-name {
+  font-size: 115%;
+  font-weight: bold;
+}
+
+.starship-description {
+  padding-bottom: 16px;
+  color: gray;
+}
+

@@ -1,68 +1,14 @@
-<h1>Code & Pepper Demo</h1>
+<app-game></app-game>
 
-<div class="layout">
-  <mat-card style="position: relative">
-    <mat-card-header>
-      <mat-card-title>{{ person1?.name }}</mat-card-title>
-      <mat-card-subtitle> {{ person1?.description }}</mat-card-subtitle>
-    </mat-card-header>
+<style>
+  code {
+    color: royalblue;
+  }
+</style>
 
-    <mat-card-content>
-      Mass: {{ person1 && person1.mass ? person1.mass + " kg" : "unknown" }}
-    </mat-card-content>
-
-    <mat-card-footer>
-      <div style="position: absolute; bottom: 12px;" [ngSwitch]="(scoreMessage | async)">
-        <mat-icon style="color: green" *ngSwitchCase="ScoreMessage.Player1">done</mat-icon>
-        <mat-icon style="color: red" *ngSwitchCase="ScoreMessage.Player2">close</mat-icon>
-        <mat-icon style="color: yellow" *ngSwitchCase="ScoreMessage.Tie">remove</mat-icon>
-      </div>
-    </mat-card-footer>
-  </mat-card>
-
-  <div class="center-column">
-    <div class="center-column__controls">
-      <div class="score">
-        <span [@simpleFadeAnimation]="player1Score" class="player1-score">
-          {{ player1Score }}
-        </span>
-
-        <span>&colon;</span>
-
-        <span [@simpleFadeAnimation]="player2Score" class="player2-score">
-          {{ player2Score }}
-        </span>
-      </div>
-
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="!playEnabled"
-        (click)="play()">
-        Play!
-      </button>
-
-      <!-- empty spacer  -->
-      <span></span>
-    </div>
-  </div>
-
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>{{ person2?.name }}</mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-      Mass: {{ person2?.mass }} kg
-    </mat-card-content>
-
-    <mat-card-footer>
-      <ng-container [ngSwitch]="(scoreMessage | async)">
-        <mat-icon style="color: green" *ngSwitchCase="ScoreMessage.Player2">done</mat-icon>
-        <mat-icon style="color: red" *ngSwitchCase="ScoreMessage.Player1">close</mat-icon>
-        <mat-icon style="color: yellow" *ngSwitchCase="ScoreMessage.Tie">remove</mat-icon>
-      </ng-container>
-    </mat-card-footer>
-  </mat-card>
-</div>
-
+<p style="margin-top: 2em; max-width: 400px; text-align: justify;">
+Note: as there is quite a bit of <code>"unknown"</code> values in
+<code>mass</code> and <code>crew</code> properties in the SWAPI data,
+I've decided to treat them as 0, otherwise there would be much more
+ties than wins/loses, when one of them is not <code>"unknown"</code>.
+</p>

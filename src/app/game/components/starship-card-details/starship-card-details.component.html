@@ -1,0 +1,50 @@
+<mat-card-content @animate *ngIf="starship; else encourage">
+  <div class="header" *ngIf="starship">
+    <div class="left-col">
+      <div class="starship-name">{{ starship.name }}</div>
+      <div class="starship-description">{{ starship.description }}</div>
+    </div>
+
+    <div class="right-col">
+      <img height="48px" width="48px" src="/assets/icons/starship.svg"/>
+    </div>
+  </div>
+
+  <table class="details-table">
+    <tr>
+      <td>Class</td>
+      <td>{{ starship.starship_class }}</td>
+    </tr>
+
+    <tr>
+      <td>Model</td>
+      <td>{{ starship.model }}</td>
+    </tr>
+
+    <tr>
+      <td>Hyperdrive Rating</td>
+      <td>{{ starship.hyperdrive_rating }}</td>
+    </tr>
+
+    <tr>
+      <td>Max Atmosphering Speed</td>
+      <td>{{ starship.max_atmosphering_speed }}</td>
+    </tr>
+
+    <tr>
+      <td>
+        <b>Crew</b>
+      </td>
+      <td>
+        <b>{{ starship.crew || "unknown" }}</b>
+      </td>
+    </tr>
+  </table>
+</mat-card-content>
+
+<ng-template #encourage>
+  <p class="encourage">
+    {{ drawing ? drawingCardText : encouragementText }}
+  </p>
+</ng-template>
+

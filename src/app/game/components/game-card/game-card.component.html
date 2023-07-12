@@ -1,0 +1,54 @@
+<mat-card style="position: relative">
+  <!-- <div style=" -->
+    <!-- width: calc(100% - 12px); -->
+    <!-- height: calc(100% - 12px); -->
+    <!-- top: 6px; -->
+    <!-- left: 6px; -->
+    <!-- position: absolute; -->
+    <!-- border: 5px double #7c4a04; -->
+    <!-- border-radius: 11px; -->
+    <!-- "></div> -->
+
+  <!-- <mat-card-header> -->
+    <!-- <mat-card-title> -->
+      <!-- <p class="card-title">{{ title }}</p> -->
+    <!-- </mat-card-title> -->
+  <!-- </mat-card-header> -->
+
+  <!-- <mat-divider></mat-divider> -->
+
+  <ng-content></ng-content>
+
+  <mat-card-footer>
+    <div
+      *ngIf="scoreMessage !== ScoreMessage.None"
+      style="text-align: center; padding-bottom: 16px; pointer-events: none;"
+      [ngSwitch]="scoreMessage">
+      <button
+        @animateButton
+        *ngSwitchCase="ScoreMessage.Win"
+        mat-fab
+        class="win-color mat-elevation-z0">
+        <mat-icon>done</mat-icon>
+      </button>
+
+      <button
+        @animateButton
+        *ngSwitchCase="ScoreMessage.Lose"
+        mat-fab
+        color="accent"
+        class="lose-color mat-elevation-z0">
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <button
+        @animateButton
+        *ngSwitchCase="ScoreMessage.Tie"
+        mat-fab
+        class="tie-color mat-elevation-z0">
+        &tilde;
+      </button>
+    </div>
+  </mat-card-footer>
+</mat-card>
+
