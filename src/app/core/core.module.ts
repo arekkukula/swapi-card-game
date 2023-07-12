@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from './services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DATASERVICE_RANDOM_GEN, DataService } from './services/data.service';
-import { materialImports } from './material.imports';
 
 function initializeDataService(service: DataService): Promise<void> {
   return new Promise(async (resolve, _) => {
@@ -15,12 +14,8 @@ function initializeDataService(service: DataService): Promise<void> {
 @NgModule({
   declarations: [],
   imports: [
-    ...materialImports,
     CommonModule,
     HttpClientModule,
-  ],
-  exports: [
-    ...materialImports,
   ],
   providers: [
     ApiService,
