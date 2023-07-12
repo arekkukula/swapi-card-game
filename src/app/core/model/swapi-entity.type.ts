@@ -6,9 +6,9 @@ export type SwapiEntity<T> =
 | { message: "not found" }
 | {
   message: "ok",
-  result?: {
-    description?: string,
+  result: {
+    description: string,
     properties: T,
   },
-  _id?: string;
+  _id: string;
 }

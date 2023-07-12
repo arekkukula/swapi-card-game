@@ -2,10 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ApiService } from '../api.service';
 import { API_ROUTES } from '../../config/api-routes';
-import { Person } from 'src/app/shared/model/person.type';
-import { Starship } from 'src/app/shared/model/starship.type';
-import { SwapiEntity } from '../../model/swapi-entity.type';
-import { SwapiPerson } from '../../model/swapi-person.type';
 import { catchError, of } from 'rxjs';
 import * as utils from "./utils";
 

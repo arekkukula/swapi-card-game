@@ -48,6 +48,7 @@ export function toSwapiEntity<T extends { uid: string }>(data: T | undefined): S
     message: "ok",
     _id: data.uid,
     result: {
+      description: "test description",
       properties: data
     }
   }
@@ -69,16 +70,16 @@ export function toSwapiStarship(starship: Starship): SwapiStarship {
 
 export const mockData = {
   people: <Person[]>[
-    { uid: '1', name: "test 1", mass: 0 },
-    { uid: '2', name: "test 2", mass: 25 },
-    { uid: '3', name: "test 3", mass: 50 },
-    { uid: '4', name: "test 4", mass: 75 }
+    { uid: '1', name: "test 1", mass: 0, description: "test description" },
+    { uid: '2', name: "test 2", mass: 25, description: "test description" },
+    { uid: '3', name: "test 3", mass: 50, description: "test description" },
+    { uid: '4', name: "test 4", mass: 75, description: "test description" },
   ],
   starships: <Starship[]>[
-    { uid: '1', name: "test 1", crew: 0, description: "", },
-    { uid: '2', name: "test 2", crew: 25, description: "" },
-    { uid: '3', name: "test 3", crew: 50, description: "" },
-    { uid: '4', name: "test 4", crew: 75, description: "" }
+    { uid: '1', name: "test 1", crew: 0, description: "test description" },
+    { uid: '2', name: "test 2", crew: 25, description: "test description" },
+    { uid: '3', name: "test 3", crew: 50, description: "test description" },
+    { uid: '4', name: "test 4", crew: 75, description: "test description" },
   ],
 }
 
