@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input } from '@angular/core';
-import { ScoreMessage } from 'src/app/shared/model/score-message.enum';
+import { ScoreMessage } from 'src/app/game/model/score-message.enum';
 
 @Component({
   selector: 'app-game-card',

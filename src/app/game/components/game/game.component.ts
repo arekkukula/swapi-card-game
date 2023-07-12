@@ -3,7 +3,7 @@ import { Observable, delay, finalize, forkJoin, map, tap } from 'rxjs';
 import { DataService } from 'src/app/core/services/data.service';
 import { Person } from 'src/app/shared/model/person.type';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { ScoreMessage } from 'src/app/shared/model/score-message.enum';
+import { ScoreMessage } from 'src/app/game/model/score-message.enum';
 import { Starship } from 'src/app/shared/model/starship.type';
 
 type Player = {
